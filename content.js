@@ -8,8 +8,9 @@
 
 const content = {
 
-  // 상단 로고 옆에 표시되는 회사명
-  companyName: "진흥측량설계공사",
+  // 상단 로고 옆에 표시되는 회사명 (앞부분은 빨간색으로 강조됩니다)
+  companyNamePrefix: "진흥",
+  companyNameRest: "측량설계공사",
 
   // 로고 이미지 파일명 (이 파일과 같은 폴더에 이미지를 넣고 파일명을 적으면 자동으로 적용됩니다)
   // 예: "logo.png"  /  비워두면(따옴표만 "") 기본 심볼이 대신 표시됩니다.
@@ -17,10 +18,10 @@ const content = {
 
   // 맨 위 큰 배너(히어로) 영역
   hero: {
-    eyebrow: " ",       // 작은 라벨 문구
+    eyebrow: "EST. — 포천 · 경기북부",       // 작은 라벨 문구
     titleLine1: "정확한 측량, 신뢰할 수 있는 설계.",
     titleLine2: "진흥측량설계공사",
-    lead: "토지 측량부터 건축 관련 설계, 부동산 컨설팅까지 — 30년간 지역과 함께해 온 경험을 바탕으로 정확하고 책임감 있게 업무를 수행합니다.",
+    lead: "토지 측량부터 건축 관련 설계, 부동산 컨설팅까지 — 지역과 함께해 온 경험을 바탕으로 정확하고 책임감 있게 업무를 수행합니다.",
     image: "hero.jpg"   // 이 파일과 같은 폴더에 사진을 넣고 파일명을 적으면 됩니다
   },
 
@@ -30,9 +31,9 @@ const content = {
 
     // 연혁 목록: 필요한 만큼 { } 덩어리를 늘리거나 줄일 수 있어요
     timeline: [
-      { year: "연혁", text: "1996.07 ~" },
-      { year: " ",    text: " " },
-      { year: " ",    text: " " }
+      { year: "연혁", text: "회사 설립 및 주요 연혁을 이곳에 정리해 주세요" },
+      { year: "—",    text: "예: 사업자 등록 / 사무소 개소" },
+      { year: "—",    text: "예: 주요 실적 및 인증 취득" }
     ]
   },
 
@@ -46,15 +47,15 @@ const content = {
   // 상담문의 섹션의 연락처 정보
   contact: {
     message: "아래 번호와 이메일로 편하게 연락 주세요.",
-    address: "경기도 포천시 중앙로 86 2층, 진흥측량설계공사",
-    phone:   "031-536-6886",
-    email:   "chj0726@naver.com",
+    address: "경기도 포천시 (상세 주소 입력)",
+    phone:   "000-0000-0000",
+    email:   "example@jinheung.co.kr",
     hours:   "평일 09:00 – 18:00"
   },
 
   // 맨 아래 푸터
   footer: {
-    copyright: "진흥측량설계공사",
+    copyright: "© 2026 진흥측량설계공사. All rights reserved.",
     location:  "Pocheon, Gyeonggi-do"
   }
 };

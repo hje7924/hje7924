@@ -20,6 +20,8 @@
     --amber:#D9932E;
     --slate:#5C6670;
     --line:#D8D2C2;
+    --brand-red:#A13D2E;
+    --brand-red-tint:#F4E2DD;
     /* 콘텐츠 최대 폭 설정 (네이버 메인 콘텐츠 영역 느낌 유지) */
     --max-width: 1280px; 
   }
@@ -46,42 +48,61 @@
   }
   a{color:inherit;}
 
-  /* ---------- Header ---------- */
+  /* ---------- Header (logo row) ---------- */
   header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(243,240,231,0.92);
-    backdrop-filter:blur(6px);
+    background:var(--paper);
     border-bottom:1px solid var(--line);
   }
-  .header-inner{
+  .logo-row{
     max-width:var(--max-width);
     margin:0 auto;
-    padding:18px 8vw;
-    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 8vw;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
   .logo{
-    display:flex; align-items:center; gap:10px;
+    display:flex; align-items:center; gap:12px;
     font-family:'Space Grotesk',sans-serif;
-    font-weight:700; font-size:1.15rem;
+    font-weight:700; font-size:1.5rem;
     color:var(--ink);
     text-decoration:none;
   }
-  .logo-mark{
-    width:34px;height:34px;flex:none;
+  .logo .brand-red{
+    color:var(--brand-red);
   }
-  nav{display:flex; gap:32px;}
-  nav a{
+  .logo-mark{
+    width:42px;height:42px;flex:none;
+  }
+
+  /* ---------- Sticky navigation bar ---------- */
+  .site-nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--brand-red-tint);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:0 8vw;
+    display:flex;
+    justify-content:center;
+    gap:32px;
+  }
+  .site-nav a{
+    display:inline-block;
     font-weight:500; font-size:0.95rem;
     text-decoration:none; color:var(--ink);
-    position:relative; padding:4px 0;
+    position:relative; padding:16px 4px;
   }
-  nav a::after{
+  .site-nav a::after{
     content:"";
-    position:absolute; left:0; bottom:-2px;
+    position:absolute; left:0; bottom:10px;
     width:0; height:2px; background:var(--amber);
     transition:width .25s ease;
   }
-  nav a:hover::after{width:100%;}
+  .site-nav a:hover::after{width:100%;}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -198,22 +219,25 @@
   }
 
   @media (max-width:760px){
-    nav{display:none;}
     .hero-image{display:none;}
     .hero{min-height:auto;}
     .intro-grid{grid-template-columns:1fr; gap:36px;}
     .field-grid{grid-template-columns:1fr;}
-    .header-inner, .hero-inner, .section-inner, footer{
+    .logo-row, .nav-inner, .hero-inner, .section-inner, footer{
       padding-left:5vw;
       padding-right:5vw;
     }
+    .logo{font-size:1.2rem;}
+    .logo-mark{width:34px; height:34px;}
+    .nav-inner{gap:18px;}
+    .site-nav a{font-size:0.85rem; padding:12px 2px;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="logo-row">
     <a href="#top" class="logo">
       <svg class="logo-mark" id="logoMark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="17" cy="17" r="16" stroke="#1C2B3A" stroke-width="1.4"/>
@@ -225,15 +249,18 @@
         <line x1="27" y1="17" x2="33" y2="17" stroke="#1C2B3A" stroke-width="1.2"/>
       </svg>
       <img class="logo-mark" id="logoImage" style="display:none; object-fit:contain;" alt="로고">
-      <span id="companyName">진흥측량설계공사</span>
+      <span><span class="brand-red" id="companyNameRed"></span><span id="companyNameRest"></span></span>
     </a>
-    <nav>
-      <a href="#intro">회사소개</a>
-      <a href="#fields">사업분야</a>
-      <a href="#contact">상담문의</a>
-    </nav>
   </div>
 </header>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#intro">회사소개</a>
+    <a href="#fields">사업분야</a>
+    <a href="#contact">상담문의</a>
+  </div>
+</nav>
 
 <section class="hero" id="top">
   <img class="hero-image" id="heroImage" alt="측량 현장">
@@ -292,7 +319,8 @@
 
 <script src="content.js"></script>
 <script>
-  document.querySelectorAll('#companyName').forEach(el => el.textContent = content.companyName);
+  document.getElementById('companyNameRed').textContent = content.companyNamePrefix;
+  document.getElementById('companyNameRest').textContent = content.companyNameRest;
 
   if (content.logoImage && content.logoImage.trim() !== "") {
     document.getElementById('logoImage').src = content.logoImage;
