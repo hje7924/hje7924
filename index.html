@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진흥측량설계공사 | 포천 측량·설계·부동산 컨설팅</title>
+<meta name="description" content="경기도 포천시 진흥측량설계공사 - 토지 측량, 건축 관련 설계, 부동산 컨설팅 전문 업체입니다.">
+<meta property="og:title" content="진흥측량설계공사">
+<meta property="og:description" content="경기도 포천시 진흥측량설계공사 - 토지 측량, 건축 관련 설계, 부동산 컨설팅 전문 업체입니다.">
+<meta property="og:image" content="hero.jpg">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1C2B3A;
+    --paper:#F3F0E7;
+    --contour:#A9B8A0;
+    --amber:#D9932E;
+    --slate:#5C6670;
+    --line:#D8D2C2;
+    /* 콘텐츠 최대 폭 설정 (네이버 메인 콘텐츠 영역 느낌 유지) */
+    --max-width: 1280px; 
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk','Noto Sans KR',sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-size:0.75rem;
+    color:var(--slate);
+  }
+  a{color:inherit;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,240,231,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:18px 8vw;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700; font-size:1.15rem;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .logo-mark{
+    width:34px;height:34px;flex:none;
+  }
+  nav{display:flex; gap:32px;}
+  nav a{
+    font-weight:500; font-size:0.95rem;
+    text-decoration:none; color:var(--ink);
+    position:relative; padding:4px 0;
+  }
+  nav a::after{
+    content:"";
+    position:absolute; left:0; bottom:-2px;
+    width:0; height:2px; background:var(--amber);
+    transition:width .25s ease;
+  }
+  nav a:hover::after{width:100%;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+    min-height:520px;
+    display:flex;
+    align-items:center;
+  }
+  .hero-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    z-index:0;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(to right, var(--paper) 0%, var(--paper) 35%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative; 
+    z-index:2; 
+    width:100%;
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:110px 8vw 100px;
+  }
+  .eyebrow{margin-bottom:18px;}
+  .hero h1{
+    font-size:clamp(2.1rem,4.2vw,3.2rem);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .hero p.lead{
+    margin-top:20px;
+    font-size:1.05rem;
+    color:var(--slate);
+    max-width:560px;
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    border-bottom:1px solid var(--line);
+  }
+  .section-inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:88px 8vw;
+  }
+  .section-head{
+    display:flex; align-items:baseline; gap:16px;
+    margin-bottom:48px;
+  }
+  .section-head h2{font-size:1.7rem;}
+
+  /* 회사소개 */
+  .intro-grid{
+    display:grid; grid-template-columns:1.1fr 1fr; gap:60px;
+  }
+  .intro-grid p{color:var(--ink); max-width:480px;}
+  .timeline{border-left:2px solid var(--contour); padding-left:24px; display:flex; flex-direction:column; gap:22px;}
+  .timeline-item .mono{display:block; margin-bottom:4px;}
+  .timeline-item strong{font-size:0.98rem;}
+
+  /* 사업분야 */
+  .field-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+  }
+  .field-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:32px 26px;
+    position:relative;
+  }
+  .field-card .mono{margin-bottom:14px;}
+  .field-card h3{font-size:1.15rem; margin-bottom:10px;}
+  .field-card p{color:var(--slate); font-size:0.92rem; margin:0;}
+  .field-card::before{
+    content:"";
+    position:absolute; left:26px; top:0;
+    width:28px; height:3px; background:var(--amber);
+  }
+
+  /* 상담문의 */
+  .contact-wrap{
+    max-width:520px;
+  }
+  .contact-info .mono{margin-bottom:10px;}
+  .contact-info h2{font-size:1.7rem; margin-bottom:16px;}
+  .contact-message{
+    color:var(--slate);
+    font-size:1rem;
+    margin:0 0 28px;
+  }
+  .info-row{display:flex; gap:10px; margin-bottom:10px; font-size:0.95rem;}
+  .info-row span.label{color:var(--slate); min-width:64px; display:inline-block;}
+
+  /* Footer */
+  footer{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:28px 8vw;
+    display:flex; justify-content:space-between; align-items:center;
+    color:var(--slate); font-size:0.85rem;
+  }
+
+  @media (max-width:760px){
+    nav{display:none;}
+    .hero-image{display:none;}
+    .hero{min-height:auto;}
+    .intro-grid{grid-template-columns:1fr; gap:36px;}
+    .field-grid{grid-template-columns:1fr;}
+    .header-inner, .hero-inner, .section-inner, footer{
+      padding-left:5vw;
+      padding-right:5vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <svg class="logo-mark" id="logoMark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="17" cy="17" r="16" stroke="#1C2B3A" stroke-width="1.4"/>
+        <circle cx="17" cy="17" r="11" stroke="#A9B8A0" stroke-width="1.2"/>
+        <circle cx="17" cy="17" r="6" stroke="#D9932E" stroke-width="1.4"/>
+        <line x1="17" y1="1" x2="17" y2="7" stroke="#1C2B3A" stroke-width="1.2"/>
+        <line x1="17" y1="27" x2="17" y2="33" stroke="#1C2B3A" stroke-width="1.2"/>
+        <line x1="1" y1="17" x2="7" y2="17" stroke="#1C2B3A" stroke-width="1.2"/>
+        <line x1="27" y1="17" x2="33" y2="17" stroke="#1C2B3A" stroke-width="1.2"/>
+      </svg>
+      <img class="logo-mark" id="logoImage" style="display:none; object-fit:contain;" alt="로고">
+      <span id="companyName">진흥측량설계공사</span>
+    </a>
+    <nav>
+      <a href="#intro">회사소개</a>
+      <a href="#fields">사업분야</a>
+      <a href="#contact">상담문의</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <img class="hero-image" id="heroImage" alt="측량 현장">
+  <div class="hero-inner">
+    <div class="mono eyebrow" id="heroEyebrow"></div>
+    <h1><span id="heroTitleLine1"></span><br><span id="heroTitleLine2"></span></h1>
+    <p class="lead" id="heroLead"></p>
+  </div>
+</section>
+
+<section id="intro">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="mono">01 · Company</span>
+      <h2>회사소개</h2>
+    </div>
+    <div class="intro-grid">
+      <div>
+        <p><strong>인사말</strong><br><span id="introGreeting"></span></p>
+      </div>
+      <div class="timeline" id="timelineList"></div>
+    </div>
+  </div>
+</section>
+
+<section id="fields">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="mono">02 · Services</span>
+      <h2>사업분야</h2>
+    </div>
+    <div class="field-grid" id="fieldGrid"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <span class="mono">03 · Contact</span>
+        <h2>상담문의</h2>
+        <p class="contact-message" id="contactMessage"></p>
+        <div class="info-row"><span class="label">주소</span><span id="contactAddress"></span></div>
+        <div class="info-row"><span class="label">전화</span><span id="contactPhone"></span></div>
+        <div class="info-row"><span class="label">이메일</span><span id="contactEmail"></span></div>
+        <div class="info-row"><span class="label">시간</span><span id="contactHours"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span id="footerCopyright"></span>
+  <span class="mono" id="footerLocation"></span>
+</footer>
+
+<script src="content.js"></script>
+<script>
+  document.querySelectorAll('#companyName').forEach(el => el.textContent = content.companyName);
+
+  if (content.logoImage && content.logoImage.trim() !== "") {
+    document.getElementById('logoImage').src = content.logoImage;
+    document.getElementById('logoImage').style.display = 'block';
+    document.getElementById('logoMark').style.display = 'none';
+  }
+
+  document.getElementById('heroEyebrow').textContent = content.hero.eyebrow;
+  document.getElementById('heroTitleLine1').textContent = content.hero.titleLine1;
+  document.getElementById('heroTitleLine2').textContent = content.hero.titleLine2;
+  document.getElementById('heroLead').textContent = content.hero.lead;
+  document.getElementById('heroImage').src = content.hero.image;
+
+  document.getElementById('introGreeting').innerHTML = content.intro.greeting.replace(/\n/g, '<br>');
+
+  const timelineEl = document.getElementById('timelineList');
+  content.intro.timeline.forEach(item => {
+    timelineEl.insertAdjacentHTML('beforeend', `
+      <div class="timeline-item">
+        <span class="mono">${item.year}</span>
+        <strong>${item.text}</strong>
+      </div>
+    `);
+  });
+
+  const fieldGridEl = document.getElementById('fieldGrid');
+  content.fields.forEach(field => {
+    fieldGridEl.insertAdjacentHTML('beforeend', `
+      <div class="field-card">
+        <span class="mono">${field.tag}</span>
+        <h3>${field.title}</h3>
+        <p>${field.desc}</p>
+      </div>
+    `);
+  });
+
+  document.getElementById('contactMessage').textContent = content.contact.message;
+  document.getElementById('contactAddress').textContent = content.contact.address;
+  document.getElementById('contactPhone').textContent = content.contact.phone;
+  document.getElementById('contactEmail').textContent = content.contact.email;
+  document.getElementById('contactHours').textContent = content.contact.hours;
+
+  document.getElementById('footerCopyright').textContent = content.footer.copyright;
+  document.getElementById('footerLocation').textContent = content.footer.location;
+</script>
+
+</body>
+</html>
