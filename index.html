@@ -22,8 +22,8 @@
     --line:#E7E2D6;
     --brand-red:#A13D2E;
     --brand-red-tint:#F4E2DD;
-    /* 콘텐츠 최대 폭 설정 (네이버 메인 콘텐츠 영역 느낌 유지) */
-    --max-width: 1280px; 
+    --max-width: 1280px;
+    --nav-height: 78px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -47,118 +47,95 @@
     color:var(--slate);
   }
   a{color:inherit;}
+  section{scroll-margin-top:var(--nav-height);}
+  [id^="field-"]{scroll-margin-top:var(--nav-height);}
 
-  /* ---------- Header (logo row) ---------- */
-  header{
-    background:var(--paper);
-    border-bottom:1px solid var(--line);
+  /* ---------- Top navigation bar (fixed, transparent -> solid) ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    border-bottom:1px solid transparent;
+    transition:background .3s ease, border-color .3s ease;
   }
-  .logo-row{
+  .topbar-inner{
     max-width:var(--max-width);
     margin:0 auto;
-    padding:26px 8vw;
+    padding:20px 6vw;
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:space-between;
   }
   .logo{
-    display:flex; align-items:center; gap:12px;
+    display:flex; align-items:center; gap:10px;
     font-family:'Space Grotesk',sans-serif;
-    font-weight:700; font-size:1.5rem;
-    color:var(--ink);
+    font-weight:700; font-size:1.25rem;
+    color:#fff;
     text-decoration:none;
+    transition:color .3s ease;
   }
-  .logo .brand-red{
-    color:var(--brand-red);
-  }
-  .logo-mark{
-    width:42px;height:42px;flex:none;
-  }
+  .logo .brand-red{color:var(--brand-red);}
+  .logo-mark{width:36px;height:36px;flex:none;}
 
-  /* ---------- Sticky navigation bar ---------- */
-  .site-nav{
-    position:sticky; top:0; z-index:50;
-    background:var(--brand-red-tint);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
+  .nav-tabs{display:flex; gap:38px; list-style:none; margin:0; padding:0;}
+  .nav-tab{position:relative;}
+  .nav-tab > a{
+    color:#fff; text-decoration:none;
+    font-weight:500; font-size:0.98rem;
+    padding:10px 0; display:inline-block;
+    transition:color .3s ease;
   }
-  .nav-inner{
-    max-width:var(--max-width);
-    margin:0 auto;
-    padding:0 8vw;
-    display:flex;
-    justify-content:center;
-    gap:32px;
+  .submenu{
+    position:absolute; top:100%; left:50%;
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding:8px 0; min-width:160px;
+    box-shadow:0 14px 34px rgba(28,43,58,0.14);
+    opacity:0; pointer-events:none;
+    transform:translate(-50%,6px);
+    transition:opacity .2s ease, transform .2s ease;
   }
-  .site-nav a{
-    display:inline-block;
-    font-weight:500; font-size:0.95rem;
-    text-decoration:none; color:var(--ink);
-    position:relative; padding:16px 4px;
+  .nav-tab:hover .submenu{opacity:1; pointer-events:auto; transform:translate(-50%,4px);}
+  .submenu a{
+    display:block; padding:10px 22px;
+    font-size:0.9rem; color:var(--ink);
+    text-decoration:none; white-space:nowrap;
   }
-  .site-nav a::after{
-    content:"";
-    position:absolute; left:0; bottom:10px;
-    width:0; height:2px; background:var(--amber);
-    transition:width .25s ease;
-  }
-  .site-nav a:hover::after{width:100%;}
+  .submenu a:hover{background:var(--brand-red-tint); color:var(--brand-red);}
 
-  /* ---------- Hero ---------- */
-  .hero{
-    position:relative;
-    overflow:hidden;
-    border-bottom:1px solid var(--line);
-    min-height:520px;
-    display:flex;
-    align-items:center;
+  .topbar.scrolled{
+    background:rgba(255,255,255,0.94);
+    backdrop-filter:blur(8px);
+    border-bottom-color:var(--line);
   }
-  .hero-image{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
-    z-index:0;
+  .topbar.scrolled .logo, .topbar.scrolled .nav-tab > a{color:var(--ink);}
+  .topbar.scrolled .logo .brand-red{color:var(--brand-red);}
+
+  /* ---------- Hero carousel ---------- */
+  .hero-carousel{position:relative; height:100vh; min-height:560px; overflow:hidden;}
+  .hero-slide{
+    position:absolute; inset:0; opacity:0;
+    transition:opacity 1.4s ease;
   }
-  .hero::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:1;
-    background:linear-gradient(to right, var(--paper) 0%, var(--paper) 35%, transparent 70%);
-    pointer-events:none;
+  .hero-slide.active{opacity:1;}
+  .hero-slide img{width:100%; height:100%; object-fit:cover;}
+  .hero-overlay{position:absolute; inset:0; z-index:1; background:rgba(14,20,26,0.4);}
+  .hero-text{
+    position:relative; z-index:2; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:#fff; padding:0 6vw;
   }
-  .hero-inner{
-    position:relative; 
-    z-index:2; 
-    width:100%;
-    max-width:var(--max-width);
-    margin:0 auto;
-    padding:110px 8vw 100px;
-  }
-  .eyebrow{margin-bottom:18px;}
-  .hero h1{
-    font-size:clamp(2.1rem,4.2vw,3.2rem);
+  .hero-text h1{
+    font-size:clamp(1.9rem,4.4vw,3.2rem);
     font-weight:700;
-    color:var(--ink);
   }
-  .hero p.lead{
-    margin-top:20px;
-    font-size:1.05rem;
-    color:var(--slate);
-    max-width:560px;
+  .hero-text p{
+    margin-top:22px; font-size:1.05rem; line-height:1.9;
+    max-width:680px; color:rgba(255,255,255,0.92);
   }
 
-  /* ---------- Sections ---------- */
-  section{
-    border-bottom:1px solid var(--line);
-  }
+  /* ---------- Sections (shared) ---------- */
   .section-inner{
     max-width:var(--max-width);
     margin:0 auto;
-    padding:88px 8vw;
+    padding:96px 6vw;
   }
   .section-head{
     display:flex; align-items:baseline; gap:16px;
@@ -166,16 +143,29 @@
   }
   .section-head h2{font-size:1.7rem;}
 
-  /* 회사소개 */
-  .intro-grid{
-    display:grid; grid-template-columns:1.1fr 1fr; gap:60px;
+  /* ---------- 기업소개 (사진+설명, 리빌 애니메이션) ---------- */
+  .company-intro{border-bottom:1px solid var(--line);}
+  .intro-flex{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:64px; align-items:center;
   }
-  .intro-grid p{color:var(--ink); max-width:480px;}
-  .timeline{border-left:2px solid var(--contour); padding-left:24px; display:flex; flex-direction:column; gap:22px;}
-  .timeline-item .mono{display:block; margin-bottom:4px;}
-  .timeline-item strong{font-size:0.98rem;}
+  .intro-image img{
+    width:100%; height:420px; object-fit:cover; border-radius:4px;
+  }
+  .intro-text h2{font-size:1.9rem; margin-bottom:22px;}
+  .intro-text p{color:var(--slate); font-size:1.02rem; line-height:1.85;}
 
-  /* 사업분야 */
+  .reveal{
+    opacity:0; transform:translateY(38px);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  .reveal-delay{transition-delay:.15s;}
+
+  /* ---------- 인사말 (틀만) ---------- */
+  .greeting-text{color:var(--slate); font-size:1.02rem; line-height:1.9; max-width:720px;}
+
+  /* ---------- 사업분야 ---------- */
   .field-grid{
     display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
   }
@@ -196,49 +186,66 @@
     width:28px; height:3px; background:var(--amber);
   }
 
-  /* 상담문의 */
-  .contact-wrap{
-    max-width:520px;
+  /* ---------- 상담문의 + 오시는 길(지도) ---------- */
+  .contact-map-wrap{
+    display:grid; grid-template-columns:1fr 1.1fr; gap:64px;
   }
-  .contact-info .mono{margin-bottom:10px;}
-  .contact-info h2{font-size:1.7rem; margin-bottom:16px;}
-  .contact-message{
-    color:var(--slate);
-    font-size:1rem;
-    margin:0 0 28px;
-  }
-  .info-row{display:flex; gap:10px; margin-bottom:10px; font-size:0.95rem;}
+  .contact-box .mono{margin-bottom:10px;}
+  .contact-box h2{font-size:1.6rem; margin-bottom:18px;}
+  .contact-message{color:var(--slate); font-size:1rem; margin:0 0 24px;}
+  .info-row{display:flex; gap:10px; margin-bottom:12px; font-size:1rem;}
   .info-row span.label{color:var(--slate); min-width:64px; display:inline-block;}
-
-  /* Footer */
-  footer{
-    max-width:var(--max-width);
-    margin:0 auto;
-    padding:28px 8vw;
-    display:flex; justify-content:space-between; align-items:center;
-    color:var(--slate); font-size:0.85rem;
+  .map-box h3{font-size:1.1rem; margin-bottom:14px;}
+  .map-frame-wrap{
+    width:100%; height:320px;
+    border-radius:4px; overflow:hidden;
+    border:1px solid var(--line);
   }
+  .map-frame-wrap iframe{width:100%; height:100%; border:0;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:40px 6vw 30px; border-top:1px solid var(--line); text-align:center;}
+  .footer-inner{max-width:var(--max-width); margin:0 auto;}
+  .footer-info{
+    font-size:0.85rem; color:var(--slate); line-height:2; margin-bottom:18px;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:0 16px;
+  }
+  .footer-info span{margin-right:0;}
+  .footer-copyright{
+    font-size:0.8rem; color:var(--slate);
+  }
+
+  /* ---------- 맨 위로 버튼 ---------- */
+  .to-top{
+    position:fixed; right:26px; bottom:26px; z-index:150;
+    width:50px; height:50px; border-radius:50%;
+    background:var(--ink); color:#fff; border:none;
+    font-size:1.3rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transform:translateY(12px);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
+    box-shadow:0 6px 18px rgba(28,43,58,0.28);
+  }
+  .to-top:hover{background:var(--brand-red);}
+  .to-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
 
   @media (max-width:760px){
-    .hero-image{display:none;}
-    .hero{min-height:auto;}
-    .intro-grid{grid-template-columns:1fr; gap:36px;}
+    .nav-tabs{display:none;}
+    .hero-carousel{height:80vh;}
+    .intro-flex{grid-template-columns:1fr; gap:32px;}
+    .intro-image img{height:260px;}
     .field-grid{grid-template-columns:1fr;}
-    .logo-row, .nav-inner, .hero-inner, .section-inner, footer{
-      padding-left:5vw;
-      padding-right:5vw;
-    }
-    .logo{font-size:1.2rem;}
-    .logo-mark{width:34px; height:34px;}
-    .nav-inner{gap:18px;}
-    .site-nav a{font-size:0.85rem; padding:12px 2px;}
+    .contact-map-wrap{grid-template-columns:1fr; gap:40px;}
+    .section-inner{padding:64px 6vw;}
+    .logo{font-size:1.1rem;}
+    .logo-mark{width:30px; height:30px;}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-row">
+<nav class="topbar" id="topbar">
+  <div class="topbar-inner">
     <a href="#top" class="logo">
       <svg class="logo-mark" id="logoMark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="17" cy="17" r="16" stroke="#1C2B3A" stroke-width="1.4"/>
@@ -252,45 +259,67 @@
       <img class="logo-mark" id="logoImage" style="display:none; object-fit:contain;" alt="로고">
       <span><span class="brand-red" id="companyNameRed"></span><span id="companyNameRest"></span></span>
     </a>
-  </div>
-</header>
-
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a href="#intro">회사소개</a>
-    <a href="#fields">사업분야</a>
-    <a href="#contact">상담문의</a>
+    <ul class="nav-tabs">
+      <li class="nav-tab">
+        <a href="#intro">회사소개</a>
+        <div class="submenu">
+          <a href="#intro">기업소개</a>
+          <a href="#greeting">인사말</a>
+          <a href="#contact">찾아오시는 길</a>
+        </div>
+      </li>
+      <li class="nav-tab">
+        <a href="#fields">사업분야</a>
+        <div class="submenu">
+          <a href="#field-land">토지관련</a>
+          <a href="#field-architecture">건축관련</a>
+          <a href="#field-consulting">부동산컨설팅</a>
+        </div>
+      </li>
+      <li class="nav-tab">
+        <a href="#contact">상담문의</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<section class="hero" id="top">
-  <img class="hero-image" id="heroImage" alt="측량 현장">
-  <div class="hero-inner">
-    <div class="mono eyebrow" id="heroEyebrow"></div>
-    <h1><span id="heroTitleLine1"></span><br><span id="heroTitleLine2"></span></h1>
-    <p class="lead" id="heroLead"></p>
+<section class="hero-carousel" id="top">
+  <div id="heroSlides"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <h1><span id="heroTitleLine1"></span></h1>
+    <p id="heroTitleLine2"></p>
   </div>
 </section>
 
-<section id="intro">
+<section class="company-intro" id="intro">
+  <div class="section-inner">
+    <div class="intro-flex">
+      <div class="intro-image reveal">
+        <img id="introImage" alt="기업소개 사진">
+      </div>
+      <div class="intro-text reveal reveal-delay">
+        <h2 id="introTitleLine1"></h2>
+        <p id="introDescription"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="greeting">
   <div class="section-inner">
     <div class="section-head">
-      <span class="mono">01 · Company</span>
-      <h2>회사소개</h2>
+      <span class="mono">Greeting</span>
+      <h2>인사말</h2>
     </div>
-    <div class="intro-grid">
-      <div>
-        <p><strong>인사말</strong><br><span id="introGreeting"></span></p>
-      </div>
-      <div class="timeline" id="timelineList"></div>
-    </div>
+    <p class="greeting-text" id="greetingText"></p>
   </div>
 </section>
 
 <section id="fields">
   <div class="section-inner">
     <div class="section-head">
-      <span class="mono">02 · Services</span>
+      <span class="mono">Services</span>
       <h2>사업분야</h2>
     </div>
     <div class="field-grid" id="fieldGrid"></div>
@@ -299,58 +328,85 @@
 
 <section id="contact">
   <div class="section-inner">
-    <div class="contact-wrap">
-      <div class="contact-info">
-        <span class="mono">03 · Contact</span>
+    <div class="contact-map-wrap">
+      <div class="contact-box">
+        <span class="mono">Contact</span>
         <h2>상담문의</h2>
         <p class="contact-message" id="contactMessage"></p>
-        <div class="info-row"><span class="label">주소</span><span id="contactAddress"></span></div>
         <div class="info-row"><span class="label">전화</span><span id="contactPhone"></span></div>
         <div class="info-row"><span class="label">이메일</span><span id="contactEmail"></span></div>
-        <div class="info-row"><span class="label">시간</span><span id="contactHours"></span></div>
+      </div>
+      <div class="map-box">
+        <h3>오시는 길</h3>
+        <div class="map-frame-wrap">
+          <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p class="info-row" style="margin-top:14px;"><span class="label">주소</span><span id="contactAddress"></span></p>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <span id="footerCopyright"></span>
-  <span class="mono" id="footerLocation"></span>
+  <div class="footer-inner">
+    <div class="footer-info">
+      <span id="footerCompanyName"></span>
+      <span id="footerAddress"></span>
+      <span id="footerCeo"></span>
+      <span id="footerPhone"></span>
+      <span id="footerEmail"></span>
+    </div>
+    <div class="footer-copyright" id="footerCopyright"></div>
+  </div>
 </footer>
+
+<button class="to-top" id="toTopBtn" aria-label="맨 위로">↑</button>
 
 <script src="content.js"></script>
 <script>
+  // 로고 / 회사명
   document.getElementById('companyNameRed').textContent = content.companyNamePrefix;
   document.getElementById('companyNameRest').textContent = content.companyNameRest;
-
   if (content.logoImage && content.logoImage.trim() !== "") {
     document.getElementById('logoImage').src = content.logoImage;
     document.getElementById('logoImage').style.display = 'block';
     document.getElementById('logoMark').style.display = 'none';
   }
 
-  document.getElementById('heroEyebrow').textContent = content.hero.eyebrow;
-  document.getElementById('heroTitleLine1').textContent = content.hero.titleLine1;
-  document.getElementById('heroTitleLine2').textContent = content.hero.titleLine2;
-  document.getElementById('heroLead').textContent = content.hero.lead;
-  document.getElementById('heroImage').src = content.hero.image;
-
-  document.getElementById('introGreeting').innerHTML = content.intro.greeting.replace(/\n/g, '<br>');
-
-  const timelineEl = document.getElementById('timelineList');
-  content.intro.timeline.forEach(item => {
-    timelineEl.insertAdjacentHTML('beforeend', `
-      <div class="timeline-item">
-        <span class="mono">${item.year}</span>
-        <strong>${item.text}</strong>
+  // 히어로 캐러셀 슬라이드 생성
+  const heroSlidesEl = document.getElementById('heroSlides');
+  content.heroImages.forEach((src, i) => {
+    heroSlidesEl.insertAdjacentHTML('beforeend', `
+      <div class="hero-slide${i === 0 ? ' active' : ''}">
+        <img src="${src}" alt="측량 현장 ${i+1}">
       </div>
     `);
   });
+  const slides = document.querySelectorAll('.hero-slide');
+  let heroIndex = 0;
+  if (slides.length > 1) {
+    setInterval(() => {
+      slides[heroIndex].classList.remove('active');
+      heroIndex = (heroIndex + 1) % slides.length;
+      slides[heroIndex].classList.add('active');
+    }, 5000);
+  }
+  document.getElementById('heroTitleLine1').textContent = content.hero.titleLine1;
+  document.getElementById('heroTitleLine2').innerHTML = content.hero.titleLine2.replace(/\n/g, '<br>');
 
+  // 기업소개
+  document.getElementById('introImage').src = content.companyIntro.image;
+  document.getElementById('introTitleLine1').textContent = content.companyIntro.titleLine1;
+  document.getElementById('introDescription').innerHTML = content.companyIntro.description.replace(/\n/g, '<br>');
+
+  // 인사말
+  document.getElementById('greetingText').innerHTML = content.greeting.text.replace(/\n/g, '<br>');
+
+  // 사업분야
   const fieldGridEl = document.getElementById('fieldGrid');
   content.fields.forEach(field => {
     fieldGridEl.insertAdjacentHTML('beforeend', `
-      <div class="field-card">
+      <div class="field-card" id="field-${field.id}">
         <span class="mono">${field.tag}</span>
         <h3>${field.title}</h3>
         <p>${field.desc}</p>
@@ -358,14 +414,39 @@
     `);
   });
 
+  // 상담문의 + 지도
   document.getElementById('contactMessage').textContent = content.contact.message;
-  document.getElementById('contactAddress').textContent = content.contact.address;
   document.getElementById('contactPhone').textContent = content.contact.phone;
   document.getElementById('contactEmail').textContent = content.contact.email;
-  document.getElementById('contactHours').textContent = content.contact.hours;
+  document.getElementById('contactAddress').textContent = content.contact.address;
+  document.getElementById('mapFrame').src = 'https://www.google.com/maps?q=' + encodeURIComponent(content.contact.address) + '&output=embed';
 
+  // 푸터
+  document.getElementById('footerCompanyName').textContent = content.footer.companyName;
+  document.getElementById('footerAddress').textContent = content.footer.address;
+  document.getElementById('footerCeo').textContent = '대표 ' + content.footer.ceo;
+  document.getElementById('footerPhone').textContent = content.footer.phone;
+  document.getElementById('footerEmail').textContent = content.footer.email;
   document.getElementById('footerCopyright').textContent = content.footer.copyright;
-  document.getElementById('footerLocation').textContent = content.footer.location;
+
+  // 상단바: 스크롤하면 투명 -> 불투명 전환 + 맨 위로 버튼 표시
+  const topbar = document.getElementById('topbar');
+  const toTopBtn = document.getElementById('toTopBtn');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    topbar.classList.toggle('scrolled', y > 40);
+    toTopBtn.classList.toggle('show', y > 60);
+  });
+  toTopBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  // 기업소개 영역 스크롤 리빌 애니메이션
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+  revealEls.forEach(el => revealObserver.observe(el));
 </script>
 
 </body>
